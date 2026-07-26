@@ -10,15 +10,17 @@
 
 /* 
 
-    :: ПРИ КОМПИЛЯЦИИ ИСПОЛЬЗОВАТЬ ФЛАГ -std=c++26
     :: 
+    :: ПРИ КОМПИЛЯЦИИ ИСПОЛЬЗОВАТЬ ФЛАГ -std=c++26
     ::
 */
-int sizeBatZapret = 1;
-std::vector<std::string> bat_files_vector;
 
 // Подключение MessageBox:W/L прямо в коде для компиляции
 #pragma comment(lib, "user32.lib")
+
+
+int sizeBatZapret = 1;
+std::vector<std::string> bat_files_vector;
 
 // Основной путь для работы с запретом
 namespace fsCore = std::filesystem;
