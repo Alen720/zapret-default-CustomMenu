@@ -4,5 +4,5 @@ clear
 
 echo "Compile zapret"
 
-clang *.cpp -std=c++23 -o main.exe
+clang src/*.cpp -std=c++23 -o main.exe
 
