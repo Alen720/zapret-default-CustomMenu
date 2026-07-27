@@ -1,0 +1,257 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0d0f12;
+  color: #e6edd3;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+}
+
+.zap-root {
+  min-height: 100vh;
+  background-color: #0d0f12;
+}
+
+.zap-bg {
+  min-height: 100vh;
+}
+
+.zap-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.zap-white {
+  color: #ffffff;
+}
+
+.zap-dim {
+  color: #8b949e;
+}
+
+.zap-faint {
+  color: #484f58;
+}
+
+.zap-border {
+  border: 1px solid #30363d;
+}
+
+.zap-border-t {
+  border-top: 1px solid #21262d;
+}
+
+.zap-nav-link {
+  color: #8b949e;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.zap-nav-link:hover {
+  color: #ffffff;
+}
+
+.zap-btn-ghost {
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.zap-btn-ghost:hover {
+  border-color: #8b949e;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.zap-display {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.zap-section-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.zap-section-tag .n {
+  color: #58a6ff;
+  font-weight: bold;
+}
+
+.zap-section-title {
+  font-size: 20px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.zap-section-sub {
+  color: #8b949e;
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.term-skin {
+  background-color: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  font-family: var(--font);
+  font-size: var(--fsize);
+  line-height: var(--lh);
+}
+
+.term-bar {
+  background-color: var(--bar);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  user-select: none;
+}
+
+.term-title {
+  color: var(--titlefg);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.8;
+}
+
+.term-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--dot);
+  display: inline-block;
+  opacity: 0.7;
+}
+
+.term-body {
+  padding: 18px;
+}
+
+.cursor-thin {
+  display: inline-block;
+  width: 7px;
+  height: 15px;
+  background-color: currentColor;
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 1s infinite;
+}
+
+.cursor-block {
+  display: inline-block;
+  width: 9px;
+  height: 17px;
+  background-color: currentColor;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.p10k-seg {
+  padding: 3px 8px;
+  color: #000;
+  font-weight: 600;
+}
+
+.p10k-arrow {
+  margin-right: -1px;
+}
+
+.ps-bar {
+  width: 100%;
+  height: 14px;
+  background: #00122e;
+  border: 1px solid #1f3b73;
+}
+
+.ps-bar > div {
+  height: 100%;
+  background: #00a4ef;
+}
+
+.faq-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.faq-q {
+  color: #e6edd3;
+  font-weight: 500;
+}
+
+.fish-ghost {
+  color: #484f58;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+  color: #8b949e;
+}
+
+.chevron.open {
+  transform: rotate(90deg);
+}
+
+.faq-panel {
+  overflow: hidden;
+  transition: max-height 0.25s cubic-bezier(0, 1, 0, 1);
+}
+
+.faq-answer {
+  padding-bottom: 14px;
+  padding-left: 20px;
+  color: #8b949e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0f12;
+}
+::-webkit-scrollbar-thumb {
+  background: #21262d;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #30363d;
+}
