@@ -39,9 +39,6 @@ function App() {
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
                 <a href="#status" className="zap-btn-ghost" style={{ padding: "11px 22px" }}>Статус разработки <ChevronRight size={14} /></a>
-                <button type="button" className="zap-btn-ghost" style={{ padding: "11px 22px", background: "none", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6 }}>
-                  <ExternalLink size={13} /> Исходный код
-                </button>
               </div>
             </div>
             <HeroTerminal />
