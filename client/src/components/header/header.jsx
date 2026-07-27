@@ -1,5 +1,7 @@
-import React from "react";
-import { Terminal } from "lucide-react";
+import React, { useState } from "react";
+import { Menu, X } from "lucide-react";
+
+const GITHUB_URL = "https://github.com/xz10101/zapret-default-CustomMenu";
 
 const GithubIcon = ({ size = 13 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -9,33 +11,53 @@ const GithubIcon = ({ size = 13 }) => (
 );
 
 export default function Header() {
-  const repoUrl = "https://github.com/xz10101/zapret-default-CustomMenu";
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleNavClick = (e, id) => {
+    e.preventDefault();
+    setIsOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <header className="zap-wrap" style={{ paddingTop: 24, paddingBottom: 24, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14 }}>
-        <Terminal size={16} />
-        <span className="zap-faint">user@zapret</span>
-        <span className="zap-faint">:</span>
-        <span className="zap-white">~</span>
-        <span className="zap-white">$</span>
-        <span className="cursor-thin" style={{ width: 6, height: 13, color: "#fff" }} />
-      </div>
-      <nav style={{ display: "flex", alignItems: "center", gap: 24, fontSize: 12 }}>
-        <a href="#features" className="zap-nav-link">--features</a>
-        <a href="#status" className="zap-nav-link">--status</a>
-        <a href="#faq" className="zap-nav-link">--faq</a>
-        
-        <a 
-          href={repoUrl} 
-          target="_blank" 
-          rel="noreferrer" 
-          className="zap-btn-ghost" 
-          style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}
-        >
-          <GithubIcon size={13} /> GitHub
+    <header className="zap-header-root">
+      <div className="zap-wrap zap-header-inner">
+        <a href="/" className="zap-logo">
+          <span className="zap-dim">_&gt;</span> user@zapret : ~ $
         </a>
-      </nav>
+
+        <nav className="zap-nav-desktop">
+          <a href="#features" onClick={(e) => handleNavClick(e, "features")} className="zap-nav-link">--features</a>
+          <a href="#status" onClick={(e) => handleNavClick(e, "status")} className="zap-nav-link">--status</a>
+          <a href="#faq" onClick={(e) => handleNavClick(e, "faq")} className="zap-nav-link">--faq</a>
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="zap-btn-ghost zap-gh-btn">
+            <GithubIcon size={13} /> GitHub
+          </a>
+        </nav>
+
+        <button 
+          type="button" 
+          className="zap-burger-btn" 
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
+
+      <div className={`zap-mobile-menu ${isOpen ? "open" : ""}`}>
+        <a href="#features" onClick={(e) => handleNavClick(e, "features")} className="zap-nav-link">--features</a>
+        <a href="#status" onClick={(e) => handleNavClick(e, "status")} className="zap-nav-link">--status</a>
+        <a href="#faq" onClick={(e) => handleNavClick(e, "faq")} className="zap-nav-link">--faq</a>
+        <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="zap-btn-ghost zap-gh-btn" onClick={() => setIsOpen(false)}>
+          <GithubIcon size={14} /> GitHub
+        </a>
+      </div>
     </header>
   );
 }

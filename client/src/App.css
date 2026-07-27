@@ -242,6 +242,187 @@ html, body {
   line-height: 1.6;
 }
 
+.zap-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .zap-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
+.zap-header-root {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid var(--zap-border, #21262d);
+  background-color: var(--zap-bg, #0d0e11);
+  z-index: 100;
+}
+
+.zap-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.zap-logo {
+  font-family: monospace;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.zap-nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.zap-burger-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.zap-mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px;
+  background-color: var(--zap-bg, #0d0e11);
+  border-bottom: 1px solid var(--zap-border, #21262d);
+}
+
+.zap-mobile-menu .zap-nav-link {
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.zap-mobile-menu .zap-gh-btn {
+  width: fit-content;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .zap-nav-desktop {
+    display: none;
+  }
+
+  .zap-burger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .zap-logo {
+    font-size: 12px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.zap-header-root {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid var(--zap-border, #21262d);
+  background-color: var(--zap-bg, #0d0e11);
+  z-index: 100;
+}
+
+.zap-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.zap-logo {
+  font-family: monospace;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.zap-nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.zap-burger-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.zap-gh-btn {
+  background: transparent !important;
+  color: inherit !important;
+  border: 1px solid var(--zap-border, #21262d) !important;
+}
+
+.zap-mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 24px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  background-color: var(--zap-bg, #0d0e11);
+  border-bottom: 1px solid transparent;
+  transition: max-height 0.3s ease-in-out, opacity 0.25s ease-in-out, padding 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.zap-mobile-menu.open {
+  max-height: 300px;
+  opacity: 1;
+  padding: 20px 24px;
+  border-bottom-color: var(--zap-border, #21262d);
+}
+
+.zap-mobile-menu .zap-nav-link {
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.zap-mobile-menu .zap-gh-btn {
+  width: fit-content;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .zap-nav-desktop {
+    display: none;
+  }
+
+  .zap-burger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .zap-logo {
+    font-size: 12px;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
