@@ -23,6 +23,7 @@ bool CheckProcessName(const std::wstring& processName) {
         CloseHandle(hSnapshot); 
         return exists;
     }
+    return true;
 }
 
 bool KillProcessName(const std::wstring& processName) {

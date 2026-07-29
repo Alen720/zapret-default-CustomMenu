@@ -18,5 +18,3 @@ makefile.bat
 # Готово!
 
 Данный проект является форком zapret-discord-youtube(Flowseal)!
-
-Данный проект является форком zapret-discord-youtube(Flowseal)!

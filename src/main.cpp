@@ -5,6 +5,7 @@
 #include <print>
 #include <vector>
 #include <cstdlib>
+#include <algorithm>
 #include <windows.h>
 // #include <conio.h>
 #include "WindowsProcess.h"
@@ -18,71 +19,112 @@
 // Подключение MessageBox:W/L прямо в коде для компиляции
 #pragma comment(lib, "user32.lib")
 
-
-int sizeBatZapret = 1;
-std::vector<std::string> bat_files_vector;
-
 // Основной путь для работы с запретом
 namespace fsCore = std::filesystem;
-static const std::string path = "zapret_discord_youtube";
 
-void menu() {
-    std::system("cls");
-    std::println("Welcome to menu ZAPRET-DISCORD-CONSOLE");
 
+fsCore::path GetExeDirectory() {
+    wchar_t buffer[MAX_PATH] = {0};
+    GetModuleFileNameW(NULL, buffer, MAX_PATH);
+    return fsCore::path(buffer).parent_path();
+}
+
+
+std::vector<std::string> ReturnBatService(const fsCore::path& dir) {
+    std::vector<std::string> files;
     try {
-        for (const auto& dir_entry : std::filesystem::directory_iterator{path}) {
-            if (dir_entry.is_regular_file() && dir_entry.path().extension() == ".bat") {
-                sizeBatZapret++;
-                std::cout << sizeBatZapret << "-->  " << dir_entry.path().filename() << std::endl;
-                bat_files_vector.push_back(dir_entry.path().string());
+        if (!fsCore::exists(dir)) {
+            std::cerr << "Error! Directory does not exist: " << dir.string() << "\n";
+            return files;
+        }
+        for (const auto& entry : fsCore::directory_iterator(dir)) {
+            if (entry.is_regular_file() && entry.path().extension() == ".bat") {
+                files.push_back(entry.path().string());
             }
         }
-        
+        std::sort(files.begin(), files.end());
     } catch (const fsCore::filesystem_error& e) {
         std::cerr << "Error! " << e.what() << "\n";
     }
-    std::println("Q | q --> exit and return 0");
-    std::println("H | h --> help");
-    std::println("\n\nSelect zapret-bat: ");
-    
+    return files;
+}
 
-    
 
-    for (int i = 1; i < sizeBatZapret; i++) {
-        std::string selectBat;
-        std::cin >> selectBat;
-        int selectInt = std::stoi(selectBat); 
+void menu() {
+    fsCore::path exe_dir = GetExeDirectory();
+    fsCore::path zapret_dir = exe_dir / "zapret_discord_youtube";
 
-        if (selectInt > sizeBatZapret) {
-            std::println("Error! Not found bat");
-            menu();
-        }
-        else if (selectBat == "q" || selectBat == "Q") {
+    while (true) {
+        std::system("cls");
+        std::println("Welcome to menu ZAPRET-DISCORD-CONSOLE");
+        // std::println("EXE dir:    {}", exe_dir.string());
+        // std::println("Search dir: {}\n", zapret_dir.string());
+
+        auto bat_files = ReturnBatService(zapret_dir);
+        if (bat_files.empty()) {
+            std::println("Error! No .bat files found.");
+            std::system("pause");
             return;
         }
-        else {
-            if (CheckProcessName(L"winws.exe")) {
-                int result_mb = MessageBoxW(NULL, L"zapret-discord-youtube уже запущен! Хотите закрыть его?", L"Предупреждение", MB_YESNO | MB_ICONWARNING);
-                if (result_mb == IDYES) {
-                    KillProcessName(L"winws.exe");
-                    std::system((bat_files_vector[selectInt].c_str()));
-                }
-            }
-            else {
-                std::system((bat_files_vector[selectInt].c_str()));
-            }
+
+        for (size_t i = 0; i < bat_files.size(); ++i) {
+            std::println("[{}] = '{}'", i + 1, fsCore::path(bat_files[i]).filename().string());
         }
+
+        std::println("\nQ | q --> exit");
+        std::print("\nSelect: ");
+
+        std::string selectBat;
+        std::cin >> selectBat;
+        if (selectBat == "q" || selectBat == "Q") return;
+
+        int selectInt;
+        try {
+            selectInt = std::stoi(selectBat);
+        } catch (...) {
+            std::println("Error! Enter a valid number.");
+            std::system("pause");
+            continue;
+        }
+
+        if (selectInt < 1 || selectInt > static_cast<int>(bat_files.size())) {
+            std::println("Error! Not found bat");
+            std::system("pause");
+            continue;
+        }
+
+        std::string bat_path = bat_files[selectInt - 1];
+        fsCore::path bat_dir = fsCore::path(bat_path).parent_path();
+
+        // КЛЮЧЕВАЯ СТРОКА: cmd /c "cd /d "папка" && call "батник""
+        std::string cmd = "cmd /c \"cd /d \"" + bat_dir.string() + "\" && call \"" + bat_path + "\"\"";
+
+        // std::println("\nDEBUG command: {}", cmd);
+        // std::system("pause");
+
+        if (CheckProcessName(L"winws.exe")) {
+            int result_mb = MessageBoxW(NULL,
+                L"zapret-discord-youtube уже запущен! Хотите закрыть его?",
+                L"Предупреждение", MB_YESNO | MB_ICONWARNING);
+
+            if (result_mb == IDYES) {
+                KillProcessName(L"winws.exe");
+                std::system(cmd.c_str());
+            }
+        } else {
+            std::system(cmd.c_str());
+        }
+
+        std::system("pause");
     }
-    
 }
 
 int main(int argc, char* argv[]) {
-    std::cout << "Program name : " << argv[0] << std::endl;
-    std::cout << "Prt num : " << argc - 1 << std::endl;
+    //std::cout << "Program name : " << argv[0] << std::endl;
+    // std::cout << "Prt num : " << argc - 1 << std::endl;
 
 
-    int result_mb = MessageBoxW(NULL, L"Это тестовая версия, хотите продолжить?", L"Предупреждение", MB_YESNO | MB_ICONWARNING);
+    int result_mb = MessageBoxW(NULL, L"Это тестовая версия (0.1.0), хотите продолжить?", L"Предупреждение", MB_YESNO | MB_ICONWARNING);
 
     if (result_mb == IDYES) {
         menu();
